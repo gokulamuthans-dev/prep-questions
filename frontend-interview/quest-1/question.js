@@ -43,10 +43,12 @@ const renderQuestionsForCategory = (category, questions) => {
   div.appendChild(h2);
   questions?.forEach((question) => {
     const innerDiv = document.createElement("div");
+    innerDiv.classList.add("container");
     const statusDiv = document.createElement("div");
     statusDiv.classList.add("status", getClassByStatus(question.status));
     innerDiv.appendChild(statusDiv);
     const h3 = document.createElement("h3");
+    h3.classList.add("question-name");
     h3.id = question.id;
     h3.textContent = question.name;
     innerDiv.appendChild(h3);
