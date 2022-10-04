@@ -1,0 +1,8 @@
+**/android
+**/coverage
+**/ios
+**/.storybook
+**/.github
+**/.eslintrc.js
+**/.prettierrc
+**/craco.config.js
