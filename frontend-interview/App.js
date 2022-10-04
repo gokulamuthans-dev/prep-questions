@@ -1,33 +1,39 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Quest1 from "@quest-1/app/Quest1";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { MenuItems } from "@app/common/MenuItems";
 
 const App = () => {
   return (
-    <>
-      <div style={{ position: "absolute", top: 8, right: 40 }}>
-        <a href="/">Home</a>
+    <Router>
+      <div style={{ position: "fixed", top: 8, right: 40, float: "right" }}>
+        <Link to="/">Home</Link>
       </div>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div>
-                <h1>QUESTS</h1>
-                <ul>
-                  <li>
-                    <a href="/quest-1">Quest - 1</a>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <h1>QUESTS</h1>
+              <ul>
+                {MenuItems.map(item => (
+                  <li key={`list-${item.itemName}`}>
+                    <Link to={item.route}>{item.itemName}</Link>
                   </li>
-                </ul>
-              </div>
-            }
+                ))}
+              </ul>
+            </div>
+          }
+        />
+        {MenuItems.map(item => (
+          <Route
+            key={`path-${item.itemName}`}
+            path={item.route}
+            element={item.component}
           />
-          <Route path="/quest-1" element={<Quest1 />} />
-          <Route path="*" element={<h1>Error 404</h1>} />
-        </Routes>
-      </Router>
-    </>
+        ))}
+        <Route path="*" element={<h1>Error 404</h1>} />
+      </Routes>
+    </Router>
   );
 };
 

@@ -1,14 +1,21 @@
 const path = require("path");
+const fs = require("fs");
+
+const alias = {
+  "@app": path.resolve(__dirname),
+};
+fs.readdirSync(__dirname)
+  .filter(file => file.match(/quest\-\d+/))
+  .map(file => ({ moduleName: file, path: path.resolve(__dirname, file) }))
+  .filter(_module => fs.statSync(_module.path).isDirectory())
+  .forEach(_module => (alias[`@${_module.moduleName}`] = _module.path));
 
 module.exports = {
   devServer: {
     port: 5001,
   },
   webpack: {
-    alias: {
-      "@app": path.resolve(__dirname),
-      "@quest-1": path.resolve(__dirname, "quest-1"),
-    },
+    alias,
     configure: (webpackConfig, { env, paths }) => {
       const indexJsFile = path.resolve(__dirname, "index.js");
 
@@ -22,10 +29,16 @@ module.exports = {
           options: { presets: ["@babel/env", "@babel/preset-react"] },
         },
         {
-          test: /\.(html|css)$/,
+          test: /\.html$/,
           include: /quest-1/,
           exclude: /(node_modules|bower_components|public)/,
           loader: "html-loader",
+        },
+        {
+          test: /\.css$/,
+          include: /quest-1/,
+          exclude: /(node_modules|bower_components|public)/,
+          loader: "css-loader",
         },
       ];
 
