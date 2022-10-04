@@ -11,9 +11,9 @@ const fetchQuestionsWithSubmission = async () => {
     })
     .catch(() => [[], []]);
   const categories = {};
-  questions.forEach((quest) => {
+  questions.forEach(quest => {
     const status =
-      submissions.filter((x) => x.questionId === quest.id)?.[0]?.status ??
+      submissions.filter(x => x.questionId === quest.id)?.[0]?.status ??
       "UNATTEMPTED";
     const questionInfo = { ...quest, status };
     if (categories[quest.category]) {
@@ -25,7 +25,7 @@ const fetchQuestionsWithSubmission = async () => {
   return categories;
 };
 
-const getClassByStatus = (status) => {
+const getClassByStatus = status => {
   const statusCss = {};
   statusCss.CORRECT = "correct";
   statusCss.INCORRECT = "incorrect";
@@ -38,10 +38,10 @@ const renderQuestionsForCategory = (category, questions) => {
   const div = document.createElement("div");
   const h2 = document.createElement("h2");
   h2.textContent = `${category} - ${
-    questions.filter((x) => x.status === "CORRECT").length
+    questions.filter(x => x.status === "CORRECT").length
   } / ${questions.length}`;
   div.appendChild(h2);
-  questions?.forEach((question) => {
+  questions?.forEach(question => {
     const innerDiv = document.createElement("div");
     innerDiv.classList.add("container");
     const statusDiv = document.createElement("div");
@@ -60,6 +60,7 @@ const renderQuestionsForCategory = (category, questions) => {
 const render = async () => {
   const questionsByCategory = await fetchQuestionsWithSubmission();
   const wrapperDiv = document.getElementById("wrapper");
+  wrapperDiv.textContent = "";
   for (const [category, questions] of Object.entries(questionsByCategory)) {
     wrapperDiv.appendChild(renderQuestionsForCategory(category, questions));
   }

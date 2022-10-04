@@ -1,25 +1,33 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Q1 from "@quest-1/question.html";
+import Quest1 from "@quest-1/app/Quest1";
 
 const App = () => {
   return (
-    <div>
-      <h1>QUESTIONS</h1>
+    <>
+      <div style={{ position: "absolute", top: 8, right: 40 }}>
+        <a href="/">Home</a>
+      </div>
       <Router>
         <Routes>
           <Route
-            path="/quest-1"
-            element={<div dangerouslySetInnerHTML={{ __html: Q1 }} />}
+            path="/"
+            element={
+              <div>
+                <h1>QUESTS</h1>
+                <ul>
+                  <li>
+                    <a href="/quest-1">Quest - 1</a>
+                  </li>
+                </ul>
+              </div>
+            }
           />
+          <Route path="/quest-1" element={<Quest1 />} />
+          <Route path="*" element={<h1>Error 404</h1>} />
         </Routes>
       </Router>
-      <ul>
-        <li>
-          <a href="/quest-1">Quest - 1</a>
-        </li>
-      </ul>
-    </div>
+    </>
   );
 };
 

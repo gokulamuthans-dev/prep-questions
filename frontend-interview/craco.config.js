@@ -22,7 +22,8 @@ module.exports = {
           options: { presets: ["@babel/env", "@babel/preset-react"] },
         },
         {
-          test: /\.html$/,
+          test: /\.(html|css)$/,
+          include: /quest-1/,
           exclude: /(node_modules|bower_components|public)/,
           loader: "html-loader",
         },
@@ -32,6 +33,7 @@ module.exports = {
       paths.appSrc = path.resolve(__dirname);
 
       //console.log(webpackConfig);
+      //console.log(paths);
       return webpackConfig;
     },
   },
