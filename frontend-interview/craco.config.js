@@ -34,12 +34,6 @@ module.exports = {
           exclude: /(node_modules|bower_components|public)/,
           loader: "html-loader",
         },
-        {
-          test: /\.css$/,
-          include: /quest-1/,
-          exclude: /(node_modules|bower_components|public)/,
-          loader: "css-loader",
-        },
       ];
 
       paths.appIndexJs = indexJsFile;

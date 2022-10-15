@@ -66,4 +66,6 @@ const render = async () => {
   }
 };
 
-render();
+module.exports = {
+  quest1Render: render,
+};
